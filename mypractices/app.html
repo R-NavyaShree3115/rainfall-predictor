@@ -42,7 +42,6 @@
             z-index: 1000;
             background: rgba(2, 6, 23, 0.8);
             -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             padding: 1rem 0;
         }
@@ -67,7 +66,7 @@
 
         /* Hero */
         .hero { padding: 60px 0 30px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin: 0; font-weight: 800; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero h1 { font-size: 3rem; margin: 0; font-weight: 800; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { color: var(--text-dim); max-width: 700px; margin: 15px auto; font-size: 1.1rem; }
 
         .gold-rule {
@@ -187,6 +186,12 @@
     </div>
 
     <script>
+        /** * DEPLOYMENT TIP: 
+         * If using Netlify and encountering 404s, ensure your file is named 'index.html'
+         * and placed in the root directory. If you use sub-routes later, create a 
+         * file named '_redirects' in your root with the content: /* /index.html 200
+         */
+
         const CORE_PATTERNS = [
             {
                 id: "p1",
@@ -328,13 +333,20 @@
 
             // Stats
             const perc = totalProbs === 0 ? 0 : Math.round((doneProbs / totalProbs) * 100);
-            document.getElementById('main-bar').style.width = perc + '%';
-            document.getElementById('perc').innerText = perc + '%';
+            const mainBar = document.getElementById('main-bar');
+            if (mainBar) mainBar.style.width = perc + '%';
+            
+            const percText = document.getElementById('perc');
+            if (percText) percText.innerText = perc + '%';
 
             const start = new Date(state.start);
             const daysPast = Math.ceil(Math.abs(new Date() - start) / (1000 * 60 * 60 * 24)) || 1;
-            document.getElementById('day-badge').innerText = `🔥 DAY ${daysPast} OF 90`;
-            document.getElementById('count-badge').innerText = `⏳ ${Math.max(0, 90 - daysPast)} DAYS LEFT`;
+            
+            const dayBadge = document.getElementById('day-badge');
+            if (dayBadge) dayBadge.innerText = `🔥 DAY ${daysPast} OF 90`;
+            
+            const countBadge = document.getElementById('count-badge');
+            if (countBadge) countBadge.innerText = `⏳ ${Math.max(0, 90 - daysPast)} DAYS LEFT`;
         }
 
         window.toggleProb = (uid) => { state.done[uid] = !state.done[uid]; save(); };
@@ -347,8 +359,8 @@
             const newP = {
                 id: 'c-' + Date.now(),
                 name: name,
-                signals: document.getElementById('add-signals').value.split(',').map(s => s.trim()),
-                problems: document.getElementById('add-probs').value.split(',').map(s => s.trim())
+                signals: document.getElementById('add-signals').value.split(',').map(s => s.trim()).filter(s => s),
+                problems: document.getElementById('add-probs').value.split(',').map(s => s.trim()).filter(s => s)
             };
             state.custom.push(newP);
             save();
@@ -364,7 +376,8 @@
             }
         };
 
-        updateUI();
+        // Initialize UI
+        document.addEventListener('DOMContentLoaded', updateUI);
     </script>
 </body>
 </html>
