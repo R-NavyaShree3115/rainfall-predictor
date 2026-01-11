@@ -1,0 +1,9 @@
+/.venv
+/.vscode
+/models
+/node_modules
+/output
+/public
+/src
+/venv
+/__pycache__
