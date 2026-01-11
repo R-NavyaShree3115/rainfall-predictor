@@ -35,12 +35,12 @@
             min-height: 100vh;
         }
 
-        /* Nav & Stats */
         .header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(2, 6, 23, 0.8);
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             padding: 1rem 0;
@@ -58,69 +58,76 @@
             font-size: 0.8rem;
             font-weight: 700;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .progress-wrapper { display: flex; align-items: center; gap: 15px; }
         .progress-track { flex-grow: 1; height: 10px; background: #1e293b; border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.8s ease; }
 
-        /* Hero */
-        .hero { padding: 60px 0 30px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin: 0; font-weight: 800; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero { padding: 40px 0 20px; text-align: center; }
+        .hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0; font-weight: 800; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
         .hero p { color: var(--text-dim); max-width: 700px; margin: 15px auto; font-size: 1.1rem; }
 
         .gold-rule {
             background: linear-gradient(45deg, rgba(245, 158, 11, 0.1), transparent);
             border: 1px solid rgba(245, 158, 11, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            margin: 20px 0;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 30px 0;
             font-weight: 600;
             color: var(--warning);
+            text-align: left;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
 
-        /* Pattern Cards */
         .pattern-list { display: grid; gap: 40px; padding-bottom: 80px; }
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 35px;
+            padding: clamp(20px, 5vw, 35px);
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .card.completed { border-color: var(--success); box-shadow: 0 0 40px rgba(34, 197, 94, 0.05); }
+        .card:hover { border-color: var(--primary); transform: translateY(-4px); }
+        .card.completed { border-color: var(--success); box-shadow: 0 0 40px rgba(34, 197, 94, 0.08); }
 
-        .card-header { display: flex; justify-content: space-between; margin-bottom: 25px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .card-title { display: flex; align-items: center; gap: 15px; }
         .p-num { width: 35px; height: 35px; background: var(--primary); color: var(--bg-dark); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
 
-        .grid-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .grid-sections { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
         @media (max-width: 800px) { .grid-sections { grid-template-columns: 1fr; } }
 
-        .section-label { font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
+        .section-label { font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; display: block; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
         
         .signal-list { list-style: none; padding: 0; margin: 0 0 20px; }
-        .signal-item { font-size: 0.9rem; margin-bottom: 5px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-        .signal-item::before { content: "•"; color: var(--primary); }
+        .signal-item { font-size: 0.9rem; margin-bottom: 8px; color: var(--text-main); display: flex; align-items: flex-start; gap: 8px; }
+        .signal-item::before { content: "→"; color: var(--primary); font-weight: bold; }
 
-        .anti-signal { font-size: 0.85rem; color: #f87171; background: rgba(239, 68, 68, 0.05); padding: 8px; border-radius: 8px; margin-top: 10px; }
+        .anti-signal { font-size: 0.85rem; color: #f87171; background: rgba(239, 68, 68, 0.08); padding: 12px; border-radius: 12px; margin-top: 15px; border: 1px solid rgba(239, 68, 68, 0.1); }
 
         .prob-item {
-            background: rgba(0,0,0,0.2);
+            background: rgba(2, 6, 23, 0.4);
             margin-bottom: 8px;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 12px;
             cursor: pointer;
             transition: 0.2s;
+            border: 1px solid transparent;
+            user-select: none;
         }
-        .prob-item:hover { background: rgba(56, 189, 248, 0.05); }
-        .prob-item.done { opacity: 0.4; text-decoration: line-through; }
+        .prob-item:hover { background: rgba(56, 189, 248, 0.08); border-color: var(--border); }
+        .prob-item.done { background: rgba(34, 197, 94, 0.05); }
+        .prob-item.done span { text-decoration: line-through; color: var(--text-dim); }
 
+        .notes-container { position: relative; margin-top: 25px; }
         .notes-area {
             width: 100%;
             background: #020617;
@@ -130,22 +137,61 @@
             color: #cbd5e1;
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
-            margin-top: 20px;
-            min-height: 80px;
+            min-height: 100px;
             resize: vertical;
         }
+        .copy-note-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        .copy-note-btn:hover { background: var(--primary); color: var(--bg-dark); }
 
-        /* Controls */
-        .controls { background: rgba(15, 23, 42, 0.4); padding: 30px; border-radius: 24px; border: 1px dashed var(--border); margin-bottom: 40px; }
-        .input-box { width: 100%; padding: 12px; background: #020617; border: 1px solid var(--border); border-radius: 8px; color: white; margin-bottom: 10px; }
-        .btn { padding: 12px 24px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .controls { background: rgba(15, 23, 42, 0.4); padding: 30px; border-radius: 24px; border: 1px dashed var(--border); margin-bottom: 40px; text-align: left; }
+        .input-box { width: 100%; padding: 14px; background: #020617; border: 1px solid var(--border); border-radius: 12px; color: white; margin-bottom: 12px; font-family: inherit; }
+        .btn { padding: 14px 24px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; transition: 0.3s; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-add { background: var(--primary); color: var(--bg-dark); width: 100%; }
-        .btn-reset { background: transparent; color: var(--danger); border: 1px solid var(--danger); font-size: 0.7rem; margin-top: 50px; }
+        .btn-reset { background: transparent; color: var(--danger); border: 1px solid var(--danger); font-size: 0.75rem; margin-top: 50px; opacity: 0.6; }
+        .master-check { width: 28px; height: 28px; accent-color: var(--success); cursor: pointer; }
 
-        .master-check { width: 25px; height: 25px; accent-color: var(--success); cursor: pointer; }
+        .hidden-signal-tag {
+            font-size: 0.7rem;
+            background: rgba(129, 140, 248, 0.15);
+            color: var(--secondary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: inline-block;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            border: 1px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 50px;
+            z-index: 2000;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { bottom: 0; opacity: 0; } to { bottom: 20px; opacity: 1; } }
     </style>
 </head>
 <body>
+
+    <div id="toast" class="toast">Action completed!</div>
 
     <div class="header">
         <div class="container">
@@ -155,7 +201,7 @@
             </div>
             <div class="progress-wrapper">
                 <div class="progress-track"><div id="main-bar" class="progress-fill"></div></div>
-                <div id="perc" style="font-weight: 800; min-width: 45px;">0%</div>
+                <div id="perc" style="font-weight: 800; min-width: 45px; font-variant-numeric: tabular-nums;">0%</div>
             </div>
         </div>
     </div>
@@ -163,109 +209,49 @@
     <div class="container">
         <header class="hero">
             <h1>DSA Pattern Master</h1>
-            <p>Your 90-day blueprint to cracking top-tier interviews. Focus on <strong>Pattern Recognition</strong> over memorization. If you can't spot it in 10 seconds, you don't know it yet.</p>
+            <p>90 days to sharpen your instincts. If you can't spot the approach in 10 seconds, it's a gap in pattern recognition, not logic.</p>
             
             <div class="gold-rule">
-                🏆 MASTER INTERVIEW RULE: 1. Is it continuous? (Window) | 2. Dependency? (Stack/Topo) | 3. Monotonic? (Binary Search)
+                <span style="display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 8px; opacity: 0.8;">🧠 Rapid Classification (The 10s Rule)</span>
+                • Continuous subarray? → <span style="color:var(--primary)">Sliding Window</span><br>
+                • Dependencies? → <span style="color:var(--primary)">Topological Sort / Stack</span><br>
+                • Monotonic Search Space? → <span style="color:var(--primary)">Binary Search on Answer</span>
             </div>
 
             <div class="controls">
-                <h4 style="margin: 0 0 15px 0; color: var(--primary);">+ New Custom Pattern</h4>
-                <input type="text" id="add-name" class="input-box" placeholder="Pattern Name (e.g. Bit Manipulation)">
+                <h4 style="margin: 0 0 15px 0; color: var(--primary); display: flex; align-items: center; gap: 10px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Custom Pattern Module
+                </h4>
+                <input type="text" id="add-name" class="input-box" placeholder="Pattern Name (e.g. Trie / Bitmask)">
                 <input type="text" id="add-signals" class="input-box" placeholder="Direct Signals (comma separated)">
-                <textarea id="add-probs" class="input-box" placeholder="Problems (comma separated)"></textarea>
-                <button class="btn btn-add" onclick="addCustom()">Add Module</button>
+                <textarea id="add-probs" class="input-box" placeholder="Practice Problems (comma separated)"></textarea>
+                <button class="btn btn-add" onclick="addCustom()">Initialize Module</button>
             </div>
         </header>
 
         <div id="pattern-root" class="pattern-list"></div>
 
-        <div style="text-align: center; padding-bottom: 50px;">
-            <button class="btn btn-reset" onclick="hardReset()">Factory Reset All 90-Day Data</button>
+        <div style="text-align: center; padding-bottom: 80px;">
+            <button class="btn btn-reset" onclick="hardReset()">Factory Reset Progress</button>
         </div>
     </div>
 
     <script>
-        /** * DEPLOYMENT TIP: 
-         * If using Netlify and encountering 404s, ensure your file is named 'index.html'
-         * and placed in the root directory. If you use sub-routes later, create a 
-         * file named '_redirects' in your root with the content: /* /index.html 200
-         */
-
         const CORE_PATTERNS = [
-            {
-                id: "p1",
-                name: "Two Pointers",
-                signals: ["Sorted array", "Pair / Triplet problems", "Need linear time", "Move ends to middle", "Remove duplicates in-place"],
-                antisignals: "Random index jumps required, non-linear movement",
-                problems: ["Two Sum (Sorted)", "Container With Most Water", "Valid Palindrome", "Remove Duplicates", "Trapping Rain Water"]
-            },
-            {
-                id: "p2",
-                name: "Sliding Window",
-                signals: ["Continuous subarray/substring", "Longest / Shortest / Max / Min", "Fixed size K", "Variable size with constraints", "At most K / At least K"],
-                antisignals: "Non-contiguous selections",
-                problems: ["Longest Substring w/o Repeats", "Min Window Substring", "Max Sum Subarray Size K", "Fruits Into Baskets", "Subarrays with K Different Integers"]
-            },
-            {
-                id: "p3",
-                name: "Prefix Sum",
-                signals: ["Range sum queries", "Repeated sum computation", "How many subarrays...", "HashMap + cumulative sum", "2D Matrix Sum"],
-                antisignals: "Only one sum query",
-                problems: ["Range Sum Query", "Find Pivot Index", "Subarray Sum Equals K", "Continuous Subarray Sum", "Product Except Self"]
-            },
-            {
-                id: "p4",
-                name: "Binary Search",
-                signals: ["Sorted data", "O(log n) expected", "Minimum feasible value", "Maximum possible value", "Check mid using True/False"],
-                antisignals: "No monotonic behavior",
-                problems: ["Rotated Sorted Array Search", "Koko Eating Bananas", "Capacity to Ship Packages", "Aggressive Cows", "Split Array Largest Sum"]
-            },
-            {
-                id: "p5",
-                name: "Fast & Slow Pointers",
-                signals: ["Linked List cycles", "Find middle element", "Repeated states", "Eventually loops back", "Array elements as pointers"],
-                antisignals: "Random index access needed",
-                problems: ["Linked List Cycle", "Find Middle of List", "Happy Number", "Find Duplicate Number"]
-            },
-            {
-                id: "p6",
-                name: "Stack",
-                signals: ["Order matters", "Next greater/smaller element", "Parentheses/Brackets", "Monotonic stack", "Undo / Rollback required"],
-                antisignals: "Random access needed",
-                problems: ["Valid Parentheses", "Daily Temperatures", "Largest Rectangle in Histogram", "Asteroid Collision", "Decode String"]
-            },
-            {
-                id: "p7",
-                name: "BFS & DFS",
-                signals: ["Tree/Graph input", "Shortest path (BFS)", "Exhaust all possibilities (DFS)", "Grid/Matrix exploration", "Connected components"],
-                antisignals: "Weighted shortest path (use Dijkstra)",
-                problems: ["Level Order Traversal", "Number of Islands", "Diameter of Tree", "Rotting Oranges", "Word Ladder"]
-            },
-            {
-                id: "p8",
-                name: "Backtracking",
-                signals: ["Generate all subsets/combinations", "Decision tree", "Constraints prune paths", "Choose / Not Choose"],
-                antisignals: "Greedy solution exists",
-                problems: ["Subsets", "N-Queens", "Combination Sum", "Permutations", "Palindrome Partitioning"]
-            },
-            {
-                id: "p9",
-                name: "Top K Elements (Heap)",
-                signals: ["Top K / Kth largest", "Most frequent", "Streaming data", "Sorting entire input is inefficient"],
-                antisignals: "K ≈ N (simple sorting is better)",
-                problems: ["Top K Frequent Elements", "K Closest Points to Origin", "Find Median from Data Stream"]
-            },
-            {
-                id: "p10",
-                name: "Topological Sort",
-                signals: ["Prerequisites", "Dependency Graph", "Directed Acyclic Graph (DAG)", "Find valid ordering", "Cycle detection"],
-                antisignals: "Undirected graph",
-                problems: ["Course Schedule", "Alien Dictionary", "Sequence Reconstruction", "Task Scheduling"]
-            }
+            { id: "p1", name: "Two Pointers", signals: ["Sorted array input", "Pair / Triplet problems", "Remove duplicates in-place", "Merge sorted structures", "Move ends to middle"], antisignals: "Random index jumps required", problems: ["Two Sum II", "Container With Most Water", "Valid Palindrome", "Remove Duplicates", "3Sum", "Trapping Rain Water"] },
+            { id: "p2", name: "Sliding Window", signals: ["Continuous subarray/substring", "Longest / Shortest / Max / Min", "Fixed size K", "At most K distinct", "Re-using window stats"], antisignals: "Non-contiguous elements", problems: ["Longest Substring w/o Repeats", "Min Window Substring", "Max Sum Subarray K", "Fruits Into Baskets", "Subarrays with K Distinct"] },
+            { id: "p3", name: "Prefix Sum", signals: ["Range sum queries", "Cumulative target (HashMap)", "2D Matrix Sum", "Product except self", "Difference arrays"], antisignals: "Single query only", problems: ["Range Sum Query", "Find Pivot Index", "Subarray Sum Equals K", "Continuous Subarray Sum", "Product Except Self"] },
+            { id: "p4", name: "Binary Search", signals: ["Sorted input", "O(log n) expected", "Minimum feasible value", "Maximum possible value", "Check mid monotonic fn"], antisignals: "No clear search range", problems: ["Search Rotated Array", "Koko Eating Bananas", "Capacity to Ship", "Aggressive Cows", "Split Array Largest Sum"] },
+            { id: "p5", name: "Fast & Slow Pointers", signals: ["Detect cycles", "Find middle", "Looping sequences", "Constant space requirement", "Start of cycle"], antisignals: "Random access required", problems: ["Linked List Cycle", "Find Middle", "Happy Number", "Duplicate Number", "Palindrome Linked List"] },
+            { id: "p6", name: "Stack", signals: ["LIFO / Order matters", "Next Greater Element", "Parentheses balancing", "Undo/Redo logic", "Monotonic Stack"], antisignals: "FIFO (Queue) requirements", problems: ["Valid Parentheses", "Daily Temperatures", "Rectangle in Histogram", "Asteroid Collision", "Decode String"] },
+            { id: "p7", name: "BFS & DFS", signals: ["Tree / Graph structure", "Shortest path (BFS)", "All possibilities (DFS)", "Grid / Island problems", "Connected components"], antisignals: "Weighted paths (Dijkstra)", problems: ["Level Order Traversal", "Number of Islands", "Diameter of Tree", "Rotting Oranges", "Clone Graph"] },
+            { id: "p8", name: "Backtracking", signals: ["Generate Combinations", "Subsets / Permutations", "Decision Trees", "Pruning paths", "Sudoku/N-Queens"], antisignals: "Greedy choice is optimal", problems: ["Subsets", "N-Queens", "Combination Sum", "Permutations", "Word Search"] },
+            { id: "p9", name: "Top K Elements (Heap)", signals: ["Top K / Kth largest", "Most frequent", "Streaming Medians", "K << N scenario", "Priority processing"], antisignals: "K is near N size", problems: ["Top K Frequent", "K Closest Points", "Find Median Stream", "Merge K Sorted Lists"] },
+            { id: "p10", name: "Topological Sort", signals: ["Directed Acyclic Graph (DAG)", "Dependency ordering", "Prerequisites", "Cycle detection in Directed Graph", "Alien Dictionary"], antisignals: "Undirected edges present", problems: ["Course Schedule I", "Course Schedule II", "Alien Dictionary", "Sequence Reconstruction"] }
         ];
 
-        let state = JSON.parse(localStorage.getItem('dsa_90_v3')) || {
+        let state = JSON.parse(localStorage.getItem('dsa_pm_v3')) || {
             custom: [],
             done: {},
             mastered: {},
@@ -273,8 +259,15 @@
             start: new Date().toISOString()
         };
 
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 2000);
+        }
+
         function save() {
-            localStorage.setItem('dsa_90_v3', JSON.stringify(state));
+            localStorage.setItem('dsa_pm_v3', JSON.stringify(state));
             updateUI();
         }
 
@@ -309,74 +302,83 @@
                     <div class="card-header">
                         <div class="card-title">
                             <div class="p-num">${idx + 1}</div>
-                            <h2 style="margin:0">${p.name}</h2>
+                            <h2 style="margin:0; font-size: 1.2rem;">${p.name}</h2>
                         </div>
-                        <input type="checkbox" class="master-check" ${isMastered ? 'checked' : ''} onchange="toggleMastery('${p.id}')" title="Mark Pattern Mastered">
+                        <input type="checkbox" class="master-check" ${isMastered ? 'checked' : ''} onchange="toggleMastery('${p.id}')" title="Pattern Fully Internalized">
                     </div>
                     <div class="grid-sections">
                         <div>
-                            <span class="section-label">🚨 Recognition Signals</span>
+                            <span class="section-label">🚨 Identification Signals</span>
+                            <div class="hidden-signal-tag">Contextual Recognition</div>
                             <ul class="signal-list">
                                 ${p.signals.map(s => `<li class="signal-item">${s}</li>`).join('')}
                             </ul>
-                            ${p.antisignals ? `<div class="anti-signal"><strong>Anti-Signals:</strong> ${p.antisignals}</div>` : ''}
+                            ${p.antisignals ? `<div class="anti-signal"><strong>False Positives:</strong> ${p.antisignals}</div>` : ''}
                         </div>
                         <div>
-                            <span class="section-label">🧪 Practice Problems</span>
+                            <span class="section-label">🧪 Curriculum</span>
                             ${probHTML}
                         </div>
                     </div>
-                    <textarea class="notes-area" placeholder="Key trick for this pattern..." oninput="saveNote('${p.id}', this.value)">${state.notes[p.id] || ''}</textarea>
+                    <div class="notes-container">
+                        <button class="copy-note-btn" onclick="copyNote('${p.id}')">Copy</button>
+                        <textarea class="notes-area" placeholder="Key logic / edge cases for this pattern..." oninput="saveNote('${p.id}', this.value)">${state.notes[p.id] || ''}</textarea>
+                    </div>
                 `;
                 root.appendChild(card);
             });
 
-            // Stats
             const perc = totalProbs === 0 ? 0 : Math.round((doneProbs / totalProbs) * 100);
-            const mainBar = document.getElementById('main-bar');
-            if (mainBar) mainBar.style.width = perc + '%';
-            
-            const percText = document.getElementById('perc');
-            if (percText) percText.innerText = perc + '%';
+            document.getElementById('main-bar').style.width = perc + '%';
+            document.getElementById('perc').innerText = perc + '%';
 
             const start = new Date(state.start);
-            const daysPast = Math.ceil(Math.abs(new Date() - start) / (1000 * 60 * 60 * 24)) || 1;
-            
-            const dayBadge = document.getElementById('day-badge');
-            if (dayBadge) dayBadge.innerText = `🔥 DAY ${daysPast} OF 90`;
-            
-            const countBadge = document.getElementById('count-badge');
-            if (countBadge) countBadge.innerText = `⏳ ${Math.max(0, 90 - daysPast)} DAYS LEFT`;
+            const daysPast = Math.max(1, Math.ceil(Math.abs(new Date() - start) / (1000 * 60 * 60 * 24)));
+            document.getElementById('day-badge').innerText = `🔥 DAY ${daysPast} OF 90`;
+            document.getElementById('count-badge').innerText = `⏳ ${Math.max(0, 90 - daysPast)} DAYS LEFT`;
         }
 
         window.toggleProb = (uid) => { state.done[uid] = !state.done[uid]; save(); };
         window.toggleMastery = (id) => { state.mastered[id] = !state.mastered[id]; save(); };
-        window.saveNote = (id, val) => { state.notes[id] = val; save(); };
+        window.saveNote = (id, val) => { state.notes[id] = val; localStorage.setItem('dsa_pm_v3', JSON.stringify(state)); };
+        
+        window.copyNote = (id) => {
+            const note = state.notes[id] || "";
+            if(!note) return showToast("Note is empty!");
+            const textarea = document.createElement('textarea');
+            textarea.value = note;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast("Note copied to clipboard");
+        };
 
         window.addCustom = () => {
-            const name = document.getElementById('add-name').value;
-            if(!name) return;
-            const newP = {
+            const nameEl = document.getElementById('add-name');
+            const signalsEl = document.getElementById('add-signals');
+            const probsEl = document.getElementById('add-probs');
+            
+            if(!nameEl.value.trim()) return showToast("Name required");
+
+            state.custom.push({
                 id: 'c-' + Date.now(),
-                name: name,
-                signals: document.getElementById('add-signals').value.split(',').map(s => s.trim()).filter(s => s),
-                problems: document.getElementById('add-probs').value.split(',').map(s => s.trim()).filter(s => s)
-            };
-            state.custom.push(newP);
+                name: nameEl.value,
+                signals: signalsEl.value.split(',').map(s => s.trim()).filter(s => s),
+                problems: probsEl.value.split(',').map(s => s.trim()).filter(s => s)
+            });
             save();
-            document.getElementById('add-name').value = '';
-            document.getElementById('add-signals').value = '';
-            document.getElementById('add-probs').value = '';
+            nameEl.value = signalsEl.value = probsEl.value = '';
+            showToast("Pattern module added");
         };
 
         window.hardReset = () => {
-            if(confirm("Start your 90-day journey from scratch? All data will be wiped.")) {
-                localStorage.removeItem('dsa_90_v3');
+            if(confirm("Factory reset will wipe all progress. This cannot be undone. Reset?")) {
+                localStorage.removeItem('dsa_pm_v3');
                 location.reload();
             }
         };
 
-        // Initialize UI
         document.addEventListener('DOMContentLoaded', updateUI);
     </script>
 </body>
